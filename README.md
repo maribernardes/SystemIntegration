@@ -4,5 +4,5 @@ Miro diagram of system integration: https://miro.com/welcomeonboard/MEpValZOZnhV
 
 Using https://plantuml.com/sequence-diagram:
 
-![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
+![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
 
