@@ -2,6 +2,6 @@
 NeedleDeformationModel -> TrajectoryEstimation: Needle Shape
 TrajectoryEstimation -> NeedleGuide: dx,dy
 
-NeedleGuide -> SensorizedNeedle: x,y,d,θ
+NeedleGuide -> SensorizedNeedle: x,y,d,theta
 SensorizedNeedle -> NeedleDeformationModel: Strain data
 @enduml
