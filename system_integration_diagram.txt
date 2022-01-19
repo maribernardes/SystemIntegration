@@ -1,7 +1,7 @@
 @startuml
 NeedleDeformationModel -> TrajectoryEstimation: Needle Shape
-TrajectoryEstimation -> NeedleGuide: dx dy
+TrajectoryEstimation -> NeedleGuide: dx,dy
 
-NeedleGuide -> SensorizedNeedle: x y d theta
+NeedleGuide -> SensorizedNeedle: x,y,d,θ
 SensorizedNeedle -> NeedleDeformationModel: Strain data
 @enduml
