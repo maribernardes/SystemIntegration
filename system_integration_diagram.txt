@@ -1,7 +1,7 @@
 @startuml
-Robot -> MRI: Authentication Request
-Robot --> MRI: Authentication Response
+Needle Deformation Model -> Trajectory Estimation: Needle Shape
+Trajectory Estimation --> NeedleGuide: dx, dy
 
-Robot -> MRI: Another authentication Request
-Robot <-- MRI: Another authentication Response
+NeedleGuide -> Sensorized Needle: x,y,d,theta
+Sensorized Needle <-- Needle Deformation Model: Strain data
 @enduml
