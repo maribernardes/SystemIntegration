@@ -2,5 +2,7 @@
 
 Miro diagram of system integration: https://miro.com/welcomeonboard/MEpValZOZnhVNVEzejczRWxhb0hpWUJZbVVZQThjS1Qxa0llTnRRdUVpM0ZudG5nc2ROakY0ZzFqemxSRjdQN3wzMDc0NDU3MzQ5OTI1NjQwNzA3?invite_link_id=26421202184
 
-Using https://www.websequencediagrams.com/
-![alternative text](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgVW4AAwVkCgpBbGljZS0-Qm9iOiBBdXRoZW50aWNhdGlvbiBSZXF1ZXN0Cm5vdGUgcmlnaHQgb2YgACUFQm9iIHRoaW5rcyBhYm91dCBpdApCb2ItPgBKBQA3E3Nwb25zZQoKQS0-QjogdGV4dAoKQS0AAQwAAQxBLT4rAB8IQi0tPi1BAC0H&s=default)
+Using https://plantuml.com/sequence-diagram:
+
+![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
+
