@@ -1,4 +1,7 @@
 @startuml
+
+title System Architecture Diagram
+
 NeedleDeformationModel -> TrajectoryEstimation: Needle Shape
 TrajectoryEstimation -> NeedleGuide: dx,dy
 
