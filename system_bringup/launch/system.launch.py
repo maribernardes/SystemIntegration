@@ -12,6 +12,9 @@ from launch.substitutions import PythonExpression
 pkg_stage_control = get_package_share_directory('stage_control')
 pkg_needle_pose_sensors = get_package_share_directory('needle_pose_sensors')
 pkg_needle_path_control = get_package_share_directory('needle_path_control')
+pkg_trajcontrol = get_package_share_directory('trajcontrol')
+pkg_hyperion_interrogator = get_package_share_directory('hyperion_interrogator')
+pkg_needle_shape_publisher = get_package_share_directory('needle_shape_publisher')
 
 def generate_launch_description():
     return LaunchDescription([
@@ -32,6 +35,21 @@ def generate_launch_description():
                 os.path.join(pkg_needle_pose_sensors, 'launch', 'needle_pose_sensors_launch.py')
                 )
             ),
+	IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_trajcontrol, 'launch', 'virtual_nodes.launch.py')
+                )
+            ),
+       # IncludeLaunchDescription(
+       #     PythonLaunchDescriptionSource(
+         #       os.path.join(pkg_hyperion_interrogator, 'hyperion_demo.launch.py')
+         #       )
+         #   ),
+     #   IncludeLaunchDescription(
+        #    PythonLaunchDescriptionSource(
+         #       os.path.join(pkg_needle_shape_publisher, #'sensorized_shapesensing_needle.launch.py')
+        #        )
+        #    ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_needle_path_control, 'launch', 'needle_position_launch.py')
@@ -46,4 +64,6 @@ def generate_launch_description():
             name="stage_state_builder_node",
             output="screen"
         )
+        
+
     ])
