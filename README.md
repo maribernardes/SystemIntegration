@@ -7,6 +7,11 @@ Using https://plantuml.com/sequence-diagram:
 ![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
 
 ## Launching Shape-Sensing Needle Node
+First, you need to download the python requirements in the `ros2_needle_shape_publisher` repo by running the command in the `ros2_needle_shape_publisher` cloned repo directory
+```
+pip install -r ./requirements.txt
+```
+
 1. Launch the FBG interrogator node to gather the sensor readings:
 
 For the demo node:
