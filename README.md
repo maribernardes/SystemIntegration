@@ -5,6 +5,17 @@ Miro diagram of system architecture: https://miro.com/welcomeonboard/MEpValZOZnh
 Using https://plantuml.com/sequence-diagram:
 
 ![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
+## Launging whole System 
+First, clone the following repositories into your ros2 workspace: NeedleGuide, ros2_needle_shape_publisher, trajcontrol and ros2_hyperion_interrogator. Then, go through the Readme of every mentioned repository to install potentially missing requirements.
+
+To run simulation:
+```bash
+ros2 launch system_bringup system.launch.py sim_level:=1 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
+```
+To run with real hardware:
+```bash
+ros2 launch system_bringup system.launch.py sim_level:=2 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
+```
 
 ## Launching Shape-Sensing Needle Node
 First, you need to download the python requirements in the `ros2_needle_shape_publisher` repo by running the command in the `ros2_needle_shape_publisher` cloned repo directory
