@@ -40,11 +40,11 @@ def generate_launch_description():
                 os.path.join(pkg_trajcontrol, 'launch', 'virtual_nodes.launch.py')
                 )
             ),
-       # IncludeLaunchDescription(
-       #     PythonLaunchDescriptionSource(
-         #       os.path.join(pkg_hyperion_interrogator, 'hyperion_demo.launch.py')
-         #       )
-         #   ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_hyperion_interrogator, 'hyperion_demo.launch.py')
+                )
+            ),
      #   IncludeLaunchDescription(
         #    PythonLaunchDescriptionSource(
          #       os.path.join(pkg_needle_shape_publisher, #'sensorized_shapesensing_needle.launch.py')
