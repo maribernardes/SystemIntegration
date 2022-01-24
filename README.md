@@ -5,7 +5,7 @@ Miro diagram of system architecture: https://miro.com/welcomeonboard/MEpValZOZnh
 Using https://plantuml.com/sequence-diagram:
 
 ![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
-## Launging whole System 
+## Launching whole System 
 First, clone the following repositories into your ros2 workspace: NeedleGuide, ros2_needle_shape_publisher, trajcontrol and ros2_hyperion_interrogator. Then, go through the Readme of every mentioned repository to install potentially missing requirements.
 
 To run simulation:
