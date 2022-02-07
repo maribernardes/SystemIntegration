@@ -3,8 +3,8 @@
 title System Architecture Diagram
 
 NeedleDeformationModel -> TrajectoryEstimation: Needle Shape
-TrajectoryEstimation -> NeedleGuide: dx,dy
+TrajectoryEstimation -> NeedleGuide: dx,dz
 
-NeedleGuide -> SensorizedNeedle: x,y,d,theta
+NeedleGuide -> SensorizedNeedle: x,z (linear stage), y(depth), theta(axial rotation)
 SensorizedNeedle -> NeedleDeformationModel: Strain data
 @enduml
