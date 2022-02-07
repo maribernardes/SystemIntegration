@@ -23,6 +23,14 @@ def generate_launch_description():
             default_value="1",
             description="Simulation level: 0 - Emulation only, " +
                 "1 - virtual only, 2 - hardware only, 3 - virtual and hardware"
+                
+        ),
+        DeclareLaunchArgument(
+            "sim_level_needle_sensing",
+            default_value="1",
+            description="Simulation level: 1 - hyperrion demo, " +
+                "2 - real sensors"
+                
         ),
         actions.LogInfo(msg=["Launching with sim level: ", LaunchConfiguration('sim_level')]),
         IncludeLaunchDescription(
@@ -43,13 +51,22 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_hyperion_interrogator, 'hyperion_demo.launch.py')
-                )
+                ),
+                condition=conditions.IfCondition(
+               PythonExpression([LaunchConfiguration('sim_level_needle_sensing'), " == 1"]))
             ),
-     #   IncludeLaunchDescription(
-        #    PythonLaunchDescriptionSource(
-         #       os.path.join(pkg_needle_shape_publisher, #'sensorized_shapesensing_needle.launch.py')
-        #        )
-        #    ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_hyperion_interrogator, 'hyperion_streamer.launch.py')
+                ),
+                condition=conditions.IfCondition(
+               PythonExpression([LaunchConfiguration('sim_level_needle_sensing'), " == 2"]))
+            ),
+        #IncludeLaunchDescription(
+          #  PythonLaunchDescriptionSource(
+             #   os.path.join(pkg_needle_shape_publisher, #'sensorized_shapesensing_needle.launch.py')
+             #   )
+           # ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_needle_path_control, 'launch', 'needle_position_launch.py')
