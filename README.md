@@ -6,14 +6,25 @@ Miro diagram of system architecture: https://miro.com/welcomeonboard/MEpValZOZnh
 ## Launching whole System 
 First, clone the following repositories into your ros2 workspace: NeedleGuide, ros2_needle_shape_publisher, trajcontrol and ros2_hyperion_interrogator. Then, go through the Readme of every mentioned repository to install potentially missing requirements.
 
-To run simulation:
+To run simulation:(Put every simulation level to 1)
 ```bash
-ros2 launch system_bringup system.launch.py sim_level:=1 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
+ros2 launch system_bringup system.launch.py sim_level:=1 sim_level_needle_sensing:=1 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
 ```
-To run with real hardware:
+To run with real hardware: (Put every simulation level to 2)
 ```bash
-ros2 launch system_bringup system.launch.py sim_level:=2 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
+ros2 launch system_bringup system.launch.py sim_level:=2 sim_level_needle_sensing:=2 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
 ```
+## Simulation arguments for each module:
+Needle Guide:
+- *sim_level:=0* : Emulated (dummy nodes) stage and sensors only
+- *sim_level:=1* : Virtual stage and sensors, simulated in Gazebo (Not yet fully implemented)
+- *sim_level:=2* : Physical stage and sensors (Depth and rotation sensors currently only emulated)
+- *sim_level:=3* : Both virtual and physical sensors
+
+Shape-Sensing Needle Node:
+- *sim_level_needle_sensing:=1* : Launches the demo node: hyperion_demo.launch.py
+- *sim_level_needle_sensing:=2* :Launches the actual hardware interface node: hyperion_streamer.launch.py
+Trajectory control:
 
 ## Launching Shape-Sensing Needle Node
 First, you need to download the python requirements in the `ros2_needle_shape_publisher` repo by running the command in the `ros2_needle_shape_publisher` cloned repo directory
@@ -23,7 +34,7 @@ pip install -r ./requirements.txt
 
 1. Launch the FBG interrogator node to gather the sensor readings:
 
-For the demo node:
+For the demo node: 
 ```bash
 ros2 launch hyperion_interrogator hyperion_demo.launch.py ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel>
 ```
