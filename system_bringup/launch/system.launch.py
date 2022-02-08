@@ -26,6 +26,12 @@ def generate_launch_description():
                 
         ),
         DeclareLaunchArgument(
+            "sim_level_trajcontrol",
+            default_value="1",
+            description="Simulation level: 1 - demo.launch, " +
+                "2 - virtual"
+                ),
+        DeclareLaunchArgument(
             "sim_level_needle_sensing",
             default_value="1",
             description="Simulation level: 1 - hyperrion demo, " +
@@ -49,7 +55,16 @@ def generate_launch_description():
 	IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_trajcontrol, 'launch', 'virtual_nodes.launch.py')
-                )
+                ),
+                condition=conditions.IfCondition(
+               PythonExpression([LaunchConfiguration('sim_level_trajcontrol'), " == 2"]))
+            ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_trajcontrol, 'launch', 'demo.launch.py')
+                ),
+                condition=conditions.IfCondition(
+               PythonExpression([LaunchConfiguration('sim_level_trajcontrol'), " == 1"]))
             ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
