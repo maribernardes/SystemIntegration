@@ -8,11 +8,11 @@ First, clone the following repositories into your ros2 workspace: NeedleGuide, r
 
 To run simulation:(Put every simulation level to 1)
 ```bash
-ros2 launch system_bringup system.launch.py sim_level:=1 sim_level_needle_sensing:=1 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
+ros2 launch system_bringup system.launch.py sim_level:=1 sim_level_needle_sensing:=1 ip:=<demo IP address of the interrogator> numCHs:=<number of FBG channels> numAAs:=<number of FBG active areas per channel> needleParamFile:=<sensorized needle parameter JSON file path>
 ```
 To run with real hardware: (Put every simulation level to 2)
 ```bash
-ros2 launch system_bringup system.launch.py sim_level:=2 sim_level_needle_sensing:=2 ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
+ros2 launch system_bringup system.launch.py sim_level:=2 sim_level_needle_sensing:=2 ip:=<demo IP address of the interrogator> needleParamFile:=<sensorized needle parameter JSON file path>
 ```
 ## Simulation arguments for each module:
 Needle Guide:
@@ -36,12 +36,12 @@ pip install -r ./requirements.txt
 
 For the demo node: 
 ```bash
-ros2 launch hyperion_interrogator hyperion_demo.launch.py ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel>
+ros2 launch hyperion_interrogator hyperion_demo.launch.py ip:=<demo IP address of the interrogator> numCH:=<number of FBG channels> numAA:=<number of FBG active areas per channel> 
 ```
 For the actual hardware interface node
     
 ```bash
-ros2 launch hyperion_interrogator hyperion_streamer.launch.py ip:=<demo IP address of the interrogator>
+ros2 launch hyperion_interrogator hyperion_streamer.launch.py ip:=<demo IP address of the interrogator> 
 ```
 2. (If connected to hardware) Ensure that the sensorized needle is straight to prepare for sensor calibration
 3. Perform sensor calibration by launching the `calibrate_sensors` node
@@ -55,3 +55,4 @@ ros2 run hyperion_interrogator calibrate_sensors --ros-args -r __ns:=/needle
 ```bash
 ros2 launch needle_shape_publisher sensorized_shapesensing_needle_decomposed.launch.py needleParamFile:=path/to/needle_params.json numSignals:=200 optimMaxIterations:=15
 ```
+
