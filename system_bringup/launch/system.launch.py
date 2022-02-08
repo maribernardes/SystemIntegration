@@ -32,6 +32,9 @@ def generate_launch_description():
                 "2 - real sensors"
                 
         ),
+        DeclareLaunchArgument( 'needleParamFile',
+                                             description="The shape-sensing needle parameter json file." ),
+
         actions.LogInfo(msg=["Launching with sim level: ", LaunchConfiguration('sim_level')]),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -62,11 +65,12 @@ def generate_launch_description():
                 condition=conditions.IfCondition(
                PythonExpression([LaunchConfiguration('sim_level_needle_sensing'), " == 2"]))
             ),
-        #IncludeLaunchDescription(
-          #  PythonLaunchDescriptionSource(
-             #   os.path.join(pkg_needle_shape_publisher, #'sensorized_shapesensing_needle.launch.py')
-             #   )
-           # ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                os.path.join(pkg_needle_shape_publisher, 'sensorized_shapesensing_needle_decomposed.launch.py')
+               ),
+                launch_arguments = {'needleParamFile': LaunchConfiguration( 'needleParamFile')}.items()
+            ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_needle_path_control, 'launch', 'needle_position_launch.py')
