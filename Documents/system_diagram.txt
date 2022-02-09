@@ -10,10 +10,10 @@ rectangle UI {
   usecase "Activation Switch" as UI_Switch
 }
 
-rectangle "Compensation Algorithm" {
-  usecase "Trajectory Compensation Node" as Planner_Trajectory
-  usecase "Transform Node (Stage to Needle)" as Planner_Transform
-  usecase "Motion Planner" as Planner_Motion
+rectangle "Trajectory Control" {
+  usecase "Estimator Node" as Planner_Trajectory
+  usecase "Transform Node (User to Robot)" as Planner_Transform
+  usecase "Controller Node" as Planner_Motion
 }
 
 rectangle "Needle Shape Model" {
@@ -53,11 +53,15 @@ rectangle "X-Y Stage Hardware" {
 UI_SlicerPT --> UI_SlicerPlan
 UI_SlicerPlan --> UI_IGTLIN
 UI_SlicerVis <-- UI_IGTLOUT
+
 UI_IGTLOUT ---> Planner_Transform : /subject/state/skin_entry \n geometry_msg/msg/Point
-UI_IGTLOUT ---> Planner_Motion : /subject/state/target \n geometry_msg/msg/Point
-Planner_Motion <-- Planner_Trajectory
-Planner_Transform --> Planner_Trajectory : /needle/state/skin_entry \n geometry_msgs/msg/Point
-Planner_Transform ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_msgs/msg/Point
+UI_IGTLOUT ---> Planner_Transform : /subject/state/target \n geometry_msg/msg/Point
+Planner_Transform --> Planner_Motion : /needle/state/skin_entry \n geometry_msgs/msg/Point
+Planner_Transform --> Planner_Motion : /subject/state/target \n geometry_msg/msg/Point
+NeedleModel_Deflection --> Planner_Trajectory : /needle/state/current_shape \n std_msgs/msg/PoseArray
+XY_Sensor --> Planner_Trajectory : /stage/state/needle_pose \n geometric_msgs/msg/Pose
+Planner_Trajectory --> Planner_Motion: Jacobian \n sensor_msgs/msg/Image
+
 NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
 
 Planner_Motion ---> End_ControllerNode : /needle/cmd/pose \n geometric_msgs/msg/Pose
