@@ -1,0 +1,82 @@
+@startuml
+
+rectangle UI {
+  usecase "3D Slicer (Visualization)" as UI_SlicerVis
+  usecase "3D Slicer (Patient Tracking)" as UI_SlicerPT
+  usecase "3D Slicer (Planning)" as UI_SlicerPlan
+  usecase "ros2_igtl_bridge (IN)" as UI_IGTLIN
+  usecase "ros2_igtl_bridge (OUT)" as UI_IGTLOUT
+  usecase "Parameter Setting" as UI_Param
+  usecase "Activation Switch" as UI_Switch
+}
+
+rectangle "Compensation Algorithm" {
+  usecase "Trajectory Compensation Node" as Planner_Trajectory
+  usecase "Transform Node (Stage to Needle)" as Planner_Transform
+  usecase "Motion Planner" as Planner_Motion
+}
+
+rectangle "Needle Shape Model" {
+  usecase "Needle Deflection Model Node" as NeedleModel_Deflection
+  usecase "Needle Sensor Processing Node" as NeedleModel_Sensor
+}
+
+rectangle "End Effector" {
+  usecase "End Effector Controller Node" as End_ControllerNode
+}
+
+rectangle "End Effector Hardware" {
+  usecase "End Effector Controller" as EndHW_Controller
+  usecase "Needle Driver" as EndHW_NeedleDriver
+}
+
+rectangle "X-Y Stage Controller" {
+  usecase "Transform Node (Needle to Stage)" as XY_Transform
+  usecase "Needle Pose Sensor Node" as XY_Sensor
+  usecase "Stage Controller Node" as XY_Controller
+}
+
+rectangle "X-Y Stage Hardware" {
+  usecase "Needle Pose Sensor DAQ" as XYHW_DAQ
+  usecase "Needle Pose Sensors" as XYHW_Sensors
+  usecase "Stage Controller" as XYHW_Controller
+  usecase "XY Stage" as XYHW_Stage
+}
+
+(Imager) --> UI_SlicerPT
+(Imager) --> UI_SlicerVis
+:Operator: --> UI_SlicerPlan
+:Operator: <-- UI_SlicerVis
+:Operator: --> UI_Param
+:Operator: --> UI_Switch
+
+UI_SlicerPT --> UI_SlicerPlan
+UI_SlicerPlan --> UI_IGTLIN
+UI_SlicerVis <-- UI_IGTLOUT
+UI_IGTLOUT ---> Planner_Transform : /subject/state/skin_entry \n geometry_msg/msg/Point
+UI_IGTLOUT ---> Planner_Motion : /subject/state/target \n geometry_msg/msg/Point
+Planner_Motion <-- Planner_Trajectory
+Planner_Transform --> Planner_Trajectory : /needle/state/skin_entry \n geometry_msgs/msg/Point
+Planner_Transform ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_msgs/msg/Point
+NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
+
+Planner_Motion ---> End_ControllerNode : /needle/cmd/pose \n geometric_msgs/msg/Pose
+End_ControllerNode --> EndHW_Controller
+EndHW_Controller --> EndHW_NeedleDriver
+
+XY_Transform --> UI_IGTLIN : /stage/state/needle_pose \n geometric_msgs/msg/Pose
+XY_Sensor --> XY_Transform : /needle/state/pose \n geometric_msgs/msg/Pose
+XY_Controller --> XY_Transform : /stage/state/pose \n geometric_msgs/msg/Pose
+
+XY_Sensor <--- XYHW_DAQ
+XYHW_DAQ <-- XYHW_Sensors
+XY_Controller <--> XYHW_Controller
+XYHW_Controller <--> XYHW_Stage
+
+UI_Param ----> XY_Controller
+UI_Switch ----> XY_Controller
+
+
+@enduml
+
+
