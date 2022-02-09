@@ -6,20 +6,20 @@ Overview
 
 This is the main repository of the Smart Needle project. This repository contains:
 
-- Specification of the system
-- ROS master launch file
+- Specification of the system (see [System Overview](#overview))
+- ROS master launch file (see [Installation](#installation) and [Usage](#usage))
 
-System Overview
+System Overview <a name="overview"></a>
 ---------------
 
 Please refer to the [System Architecture Page](Documents/index.md) for the detail.
 
 
-Installation
+Installation <a name="installation"></a>
 ------------
 
 
-Usage
+Usage <a name="usage"></a>
 -----
 
 First, clone the following repositories into your ros2 workspace: NeedleGuide, ros2_needle_shape_publisher, trajcontrol and ros2_hyperion_interrogator. Then, go through the Readme of every mentioned repository to install potentially missing requirements.
