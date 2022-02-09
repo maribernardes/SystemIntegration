@@ -1,9 +1,27 @@
-# SystemIntegration
+Smart Needle System Integration
+===============================
 
-Miro diagram of system architecture: https://miro.com/welcomeonboard/MEpValZOZnhVNVEzejczRWxhb0hpWUJZbVVZQThjS1Qxa0llTnRRdUVpM0ZudG5nc2ROakY0ZzFqemxSRjdQN3wzMDc0NDU3MzQ5OTI1NjQwNzA3?invite_link_id=26421202184
+Overview
+--------
 
-![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
-## Launching whole System 
+This is the main repository of the Smart Needle project. This repository contains:
+
+- Specification of the system
+- ROS master launch file
+
+System Overview
+---------------
+
+Please refer to the [System Architecture Page](Documents/index.md) for the detail.
+
+
+Installation
+------------
+
+
+Usage
+-----
+
 First, clone the following repositories into your ros2 workspace: NeedleGuide, ros2_needle_shape_publisher, trajcontrol and ros2_hyperion_interrogator. Then, go through the Readme of every mentioned repository to install potentially missing requirements.
 
 To run simulation:(Put every simulation level to 1)
