@@ -20,7 +20,7 @@ Installation <a name="installation"></a>
 The following steps were tested on:
 - Ubuntu 20.4 + ROS2 Foxy
 
-First, install ROS 2 following the ROS 2 Documentation. Then create your ROS2 workspace following the documentation as follows:
+First, install ROS 2 following the ROS 2 Documentation and create your ROS2 workspace following the documentation as follows:
 ```bash
 source /opt/ros/foxy/setup.bash
 mkdir -p ~/dev_ws/src
@@ -36,7 +36,7 @@ git clone https://github.com/SmartNeedle/trajcontrol.git
 git clone https://github.com/SmartNeedle/ros2_needle_shape_publisher.git
 git clone https://github.com/SmartNeedle/ros2_hyperion_interrogator.git
 ```
-Then, you need to install the potentially missing requirements:
+You also need to install the potentially missing requirements:
 - Download the python requirements in the `ros2_needle_shape_publisher` repo by running the command in the `ros2_needle_shape_publisher` cloned repo directory
 ```bash
 cd ~/dev_ws/src/ros2_needle_shape_publisher
