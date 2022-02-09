@@ -11,9 +11,8 @@ rectangle UI {
 }
 
 rectangle "Trajectory Control" {
-  usecase "Estimator" as Planner_Trajectory
-  usecase "Transform Node (Stage to Needle)" as Planner_Transform
-  usecase "Controller" as Planner_Motion
+  usecase "Estimator" as Estimator
+  usecase "Controller" as Controller
 }
 
 rectangle "Needle Shape Model" {
@@ -53,9 +52,9 @@ rectangle "X-Y Stage Hardware" {
 UI_SlicerPT --> UI_SlicerPlan
 UI_SlicerPlan --> UI_IGTLIN
 UI_SlicerVis <-- UI_IGTLOUT
-UI_IGTLOUT ---> Planner_Transform : /subject/state/skin_entry \n geometry_msg/msg/Point
-UI_IGTLOUT ---> Planner_Motion : /subject/state/target \n geometry_msg/msg/Point
-Planner_Motion <-- Planner_Trajectory
+UI_IGTLOUT ---> Controller : /subject/state/skin_entry \n geometry_msg/msg/Point
+UI_IGTLOUT ---> Controller : /subject/state/target \n geometry_msg/msg/Point
+Estimator --> Controller
 Planner_Transform --> Planner_Trajectory : /needle/state/skin_entry \n geometry_msgs/msg/Point
 Planner_Transform ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_msgs/msg/Point
 NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
