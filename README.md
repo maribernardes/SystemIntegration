@@ -49,7 +49,7 @@ sudo apt install ros-foxy-control-msgs
 OR manullay by cloning repository: https://github.com/ros-controls/control_msgs/tree/foxy-devel
 into the workspace 
 
-- Install following python dependencies
+- Install the following python dependencies
 ```bash
 python3 -m pip install numpy-quaternion
 pip install transforms3d
