@@ -10,10 +10,10 @@ rectangle UI {
   usecase "Activation Switch" as UI_Switch
 }
 
-rectangle "Compensation Algorithm" {
-  usecase "Trajectory Compensation Node" as Planner_Trajectory
+rectangle "Trajectory Control" {
+  usecase "Estimator" as Planner_Trajectory
   usecase "Transform Node (Stage to Needle)" as Planner_Transform
-  usecase "Motion Planner" as Planner_Motion
+  usecase "Controller" as Planner_Motion
 }
 
 rectangle "Needle Shape Model" {
