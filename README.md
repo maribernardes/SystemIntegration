@@ -1,9 +1,27 @@
-# SystemIntegration
+Smart Needle System Integration
+===============================
 
-Miro diagram of system architecture: https://miro.com/welcomeonboard/MEpValZOZnhVNVEzejczRWxhb0hpWUJZbVVZQThjS1Qxa0llTnRRdUVpM0ZudG5nc2ROakY0ZzFqemxSRjdQN3wzMDc0NDU3MzQ5OTI1NjQwNzA3?invite_link_id=26421202184
+Overview
+--------
 
-![alternative text](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/SmartNeedle/SystemItegration/main/system_integration_diagram.txt)
-## Launching whole System 
+This is the main repository of the Smart Needle project. This repository contains:
+
+- Specification of the system (see [System Overview](#overview))
+- ROS master launch file (see [Installation](#installation) and [Usage](#usage))
+
+System Overview <a name="overview"></a>
+---------------
+
+Please refer to the [System Architecture Page](Documents/index.md) for the detail.
+
+
+Installation <a name="installation"></a>
+------------
+
+
+Usage <a name="usage"></a>
+-----
+
 First, clone the following repositories into your ros2 workspace: NeedleGuide, ros2_needle_shape_publisher, trajcontrol and ros2_hyperion_interrogator. Then, go through the Readme of every mentioned repository to install potentially missing requirements.
 
 To run simulation:(Put every simulation level to 1)
@@ -14,7 +32,7 @@ To run with real hardware: (Put every simulation level to 2)
 ```bash
 ros2 launch system_bringup system.launch.py sim_level:=2 sim_level_needle_sensing:=2 sim_level_trajcontrol:=2 ip:=<demo IP address of the interrogator> needleParamFile:=<sensorized needle parameter JSON file path>
 ```
-## Simulation arguments for each module:
+### Simulation arguments for each module:
 Needle Guide:
 - *sim_level:=0* : Emulated (dummy nodes) stage and sensors only
 - *sim_level:=1* : Virtual stage and sensors, simulated in Gazebo (Not yet fully implemented)
@@ -29,7 +47,7 @@ Trajectory control:
 - *sim_level_trajcontrol:=1* : for system integration demo
 - *sim_level_trajcontrol:=2* : for real nodes
 - 
-## Launching Shape-Sensing Needle Node
+### Launching Shape-Sensing Needle Node
 First, you need to download the python requirements in the `ros2_needle_shape_publisher` repo by running the command in the `ros2_needle_shape_publisher` cloned repo directory
 ```
 pip install -r ./requirements.txt
