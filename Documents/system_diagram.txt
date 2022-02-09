@@ -56,7 +56,7 @@ UI_IGTLOUT ---> Controller : /subject/state/skin_entry \n geometry_msg/msg/Point
 UI_IGTLOUT ---> Controller : /subject/state/target \n geometry_msg/msg/Point
 Estimator --> Controller
 NeedleModel_Deflection --> Estimator : /needle/state/current_shape \n geometry_msgs/msg/PoseArray
-XY_Transform --> Estimator : /stage/state/needle_pose \n geometric_msgs/msg/PoseStamped
+XY_Controller --> Estimator : /stage/state/needle_pose \n geometric_msgs/msg/PoseStamped
 
 UI_IGTLOUT ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_msgs/msg/Point
 NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
