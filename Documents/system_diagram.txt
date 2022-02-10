@@ -30,15 +30,15 @@ rectangle "End Effector Hardware" {
 }
 
 rectangle "X-Y Stage Controller" {
-  usecase "Transform Node (Needle to Stage)" as XY_Transform
+  usecase "Stage state builder node" as XY_Builder
   usecase "Needle Pose Sensor Node" as XY_Sensor
-  usecase "Stage Controller Node" as XY_Controller
+  usecase "Stage Control Node" as XY_Controller
 }
 
 rectangle "X-Y Stage Hardware" {
   usecase "Needle Pose Sensor DAQ" as XYHW_DAQ
   usecase "Needle Pose Sensors" as XYHW_Sensors
-  usecase "Stage Controller" as XYHW_Controller
+  usecase "Stage Control" as XYHW_Controller
   usecase "XY Stage" as XYHW_Stage
 }
 
@@ -67,9 +67,9 @@ Controller ---> End_ControllerNode : /move_stage \n stage_control_interfaces/act
 End_ControllerNode --> EndHW_Controller
 EndHW_Controller --> EndHW_NeedleDriver
 
-XY_Transform --> UI_IGTLIN : /stage/state/needle_pose \n geometry_msgs/msg/PoseStamped
-XY_Sensor --> XY_Transform : /needle/state/pose \n geometry_msgs/msg/PoseStamped
-XY_Controller --> XY_Transform : /stage/state/pose \n geometry_msgs/msg/PoseStamped
+XY_Builder --> UI_IGTLIN : /stage/state/needle_pose \n geometry_msgs/msg/PoseStamped
+XY_Sensor --> XY_Builder : /needle/state/pose \n geometry_msgs/msg/PoseStamped
+XY_Controller --> XY_Builder : /stage/state/pose \n geometry_msgs/msg/PoseStamped
 
 XY_Sensor <--- XYHW_DAQ
 XYHW_DAQ <-- XYHW_Sensors
