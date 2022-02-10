@@ -1,5 +1,4 @@
 @startuml
-
 rectangle UI {
   usecase "3D Slicer (Visualization)" as UI_SlicerVis
   usecase "3D Slicer (Patient Tracking)" as UI_SlicerPT
@@ -18,6 +17,7 @@ rectangle "Trajectory Control" {
 rectangle "Needle Shape Model" {
   usecase "Needle Deflection Model Node" as NeedleModel_Deflection
   usecase "Needle Sensor Processing Node" as NeedleModel_Sensor
+  usecase "Needle Sensor Hardware Node" as NeedleModel_SensorHW
 }
 
 rectangle "End Effector" {
@@ -52,6 +52,7 @@ rectangle "X-Y Stage Hardware" {
 UI_SlicerPT --> UI_SlicerPlan
 UI_SlicerPlan --> UI_IGTLIN
 UI_SlicerVis <-- UI_IGTLOUT
+
 UI_IGTLOUT ---> Controller : /subject/state/skin_entry \n geometry_msg/msg/Point
 UI_IGTLOUT ---> Controller : /subject/state/target \n geometry_msg/msg/Point
 Estimator --> Controller
@@ -62,12 +63,13 @@ UI_IGTLOUT ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_ms
 NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
 
 Controller ---> End_ControllerNode : /move_stage \n stage_control_interfaces/action/MoveStage
+
 End_ControllerNode --> EndHW_Controller
 EndHW_Controller --> EndHW_NeedleDriver
 
-XY_Transform --> UI_IGTLIN : /stage/state/needle_pose \n geometric_msgs/msg/Pose
-XY_Sensor --> XY_Transform : /needle/state/pose \n geometric_msgs/msg/Pose
-XY_Controller --> XY_Transform : /stage/state/pose \n geometric_msgs/msg/Pose
+XY_Transform --> UI_IGTLIN : /stage/state/needle_pose \n geometry_msgs/msg/PoseStamped
+XY_Sensor --> XY_Transform : /needle/state/pose \n geometry_msgs/msg/Pose
+XY_Controller --> XY_Transform : /stage/state/pose \n geometry_msgs/msg/Pose
 
 XY_Sensor <--- XYHW_DAQ
 XYHW_DAQ <-- XYHW_Sensors
@@ -76,8 +78,4 @@ XYHW_Controller <--> XYHW_Stage
 
 UI_Param ----> XY_Controller
 UI_Switch ----> XY_Controller
-
-
 @enduml
-
-
