@@ -36,9 +36,9 @@ rectangle "X-Y Stage Controller" {
 }
 
 rectangle "X-Y Stage Hardware" {
-  usecase "Needle Pose Sensor DAQ" as XYHW_DAQ
+  usecase "Arduino software + Putty logger" as XYHW_ArduinoPutty
   usecase "Needle Pose Sensors" as XYHW_Sensors
-  usecase "Stage Control" as XYHW_Controller
+  usecase "Stage Controller Newmark systems" as XYHW_Controller
   usecase "XY Stage" as XYHW_Stage
 }
 
@@ -61,8 +61,9 @@ XY_Controller --> Estimator : /stage/state/needle_pose \n geometric_msgs/msg/Pos
 
 UI_IGTLOUT ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_msgs/msg/Point
 NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
+NeedleModel_Deflection <-- XY_Controller : /stage/state/needle_pose \n geometric_msgs/msg/PoseStamped
 
-Controller ---> End_ControllerNode : /move_stage \n stage_control_interfaces/action/MoveStage
+Controller ---> XY_Controller : /move_stage \n stage_control_interfaces/action/MoveStage
 
 End_ControllerNode --> EndHW_Controller
 EndHW_Controller --> EndHW_NeedleDriver
@@ -71,8 +72,8 @@ XY_Builder --> UI_IGTLIN : /stage/state/needle_pose \n geometry_msgs/msg/PoseSta
 XY_Sensor --> XY_Builder : /needle/state/pose \n geometry_msgs/msg/PoseStamped
 XY_Controller --> XY_Builder : /stage/state/pose \n geometry_msgs/msg/PoseStamped
 
-XY_Sensor <--- XYHW_DAQ
-XYHW_DAQ <-- XYHW_Sensors
+XY_Sensor <--- XYHW_Arduino
+XYHW_ArduinoPutty <-- XYHW_Sensors
 XY_Controller <--> XYHW_Controller
 XYHW_Controller <--> XYHW_Stage
 
