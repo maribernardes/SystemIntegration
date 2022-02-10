@@ -63,7 +63,7 @@ UI_IGTLOUT ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_ms
 NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
 NeedleModel_Deflection <-- XY_Controller : /stage/state/needle_pose \n geometric_msgs/msg/PoseStamped
 
-Controller ---> XY_Controller : /move_stage \n stage_control_interfaces/action/MoveStage
+Controller ---> End_ControllerNode : /move_stage \n stage_control_interfaces/action/MoveStage
 
 End_ControllerNode --> EndHW_Controller
 EndHW_Controller --> EndHW_NeedleDriver
