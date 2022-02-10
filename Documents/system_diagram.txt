@@ -68,8 +68,8 @@ End_ControllerNode --> EndHW_Controller
 EndHW_Controller --> EndHW_NeedleDriver
 
 XY_Transform --> UI_IGTLIN : /stage/state/needle_pose \n geometry_msgs/msg/PoseStamped
-XY_Sensor --> XY_Transform : /needle/state/pose \n geometry_msgs/msg/Pose
-XY_Controller --> XY_Transform : /stage/state/pose \n geometry_msgs/msg/Pose
+XY_Sensor --> XY_Transform : /needle/state/pose \n geometry_msgs/msg/PoseStamped
+XY_Controller --> XY_Transform : /stage/state/pose \n geometry_msgs/msg/PoseStamped
 
 XY_Sensor <--- XYHW_DAQ
 XYHW_DAQ <-- XYHW_Sensors
