@@ -15,9 +15,9 @@ rectangle "Trajectory Control" {
 }
 
 rectangle "Needle Shape Model" {
-  usecase "Needle Deflection Model Node" as NeedleModel_Deflection
-  usecase "Needle Sensor Processing Node" as NeedleModel_Sensor
-  usecase "Needle Sensor Hardware Node" as NeedleModel_SensorHW
+  usecase "Needle Deflection Model Node \n /needle/ShapeSensingNeedle" as NeedleModel_Deflection
+  usecase "Needle Sensor Processing Node \n /needle/SensorizedNeedle" as NeedleModel_Sensor
+  usecase "Needle Sensor Hardware Node \n /needle/HyperionStreamer" as NeedleModel_SensorHW
 }
 
 rectangle "End Effector" {
@@ -59,9 +59,10 @@ Estimator --> Controller
 NeedleModel_Deflection --> Estimator : /needle/state/current_shape \n geometry_msgs/msg/PoseArray
 XY_Controller --> Estimator : /stage/state/needle_pose \n geometric_msgs/msg/PoseStamped
 
-UI_IGTLOUT ---> NeedleModel_Deflection : /needle/state/skin_entry \n geometry_msgs/msg/Point
-NeedleModel_Deflection <-- NeedleModel_Sensor : /sensor/stage/processed \n std_msgs/msg/Float64MultiArray
-'NeedleModel_Deflection <-- XY_Controller : /stage/state/needle_pose \n geometric_msgs/msg/PoseStamped
+UI_IGTLOUT ---> NeedleModel_Deflection : /subject/state/skin_entry \n geometry_msgs/msg/Point
+NeedleModel_Deflection <-- NeedleModel_Sensor: /needle/state/curvatures \n std_msgs/msg/Float64MutliArray
+NeedleModel_Sensor <-- NeedleModel_SensorHW : /needle/sensor/processed \n std_msgs/msg/Float64MultiArray
+XY_Controller --> NeedleModel_Deflection: /stage/state/needle_pose \n geometry_msgs/msg/PoseStamped
 
 Controller ---> End_ControllerNode : /move_stage \n stage_control_interfaces/action/MoveStage
 'Controller ---> XY_Controller : /move_stage \n stage_control_interfaces/action/MoveStage
