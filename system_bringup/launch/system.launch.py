@@ -17,6 +17,7 @@ pkg_hyperion_interrogator = get_package_share_directory('hyperion_interrogator')
 pkg_needle_shape_publisher = get_package_share_directory('needle_shape_publisher')
 
 def generate_launch_description():
+    print(os.getcwd())
     return LaunchDescription([
         DeclareLaunchArgument(
             "sim_level",
@@ -46,31 +47,37 @@ def generate_launch_description():
                 os.path.join(pkg_needle_pose_sensors, 'launch', 'needle_pose_sensors_launch.py')
                 )
             ),
-	IncludeLaunchDescription(
+     	IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_trajcontrol, 'launch', 'virtual_nodes.launch.py')
                 )
             ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(pkg_hyperion_interrogator, 'hyperion_demo.launch.py')
+         IncludeLaunchDescription(
+             PythonLaunchDescriptionSource(
+                 "needle.launch.py"
                 ),
-                condition=conditions.IfCondition(
-               PythonExpression([LaunchConfiguration('sim_level_needle_sensing'), " == 1"]))
+                 launch_arguments={'sim_level_needle_sensing': LaunchConfiguration('sim_level_needle_sensing'), 'needleParamFile': LaunchConfiguration('needleParamFile')}.items()
             ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(pkg_hyperion_interrogator, 'hyperion_streamer.launch.py')
-                ),
-                condition=conditions.IfCondition(
-               PythonExpression([LaunchConfiguration('sim_level_needle_sensing'), " == 2"]))
-            ),
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(
-                os.path.join(pkg_needle_shape_publisher, 'sensorized_shapesensing_needle_decomposed.launch.py')
-               ),
-                launch_arguments = {'needleParamFile': LaunchConfiguration( 'needleParamFile')}.items()
-            ),
+#        IncludeLaunchDescription(
+#            PythonLaunchDescriptionSource(
+#                os.path.join(pkg_hyperion_interrogator, 'hyperion_demo.launch.py')
+#                ),
+#                condition=conditions.IfCondition(
+#               PythonExpression([LaunchConfiguration('sim_level_needle_sensing'), " == 1"]))
+#            ),
+#        IncludeLaunchDescription(
+#            PythonLaunchDescriptionSource(
+#                os.path.join(pkg_hyperion_interrogator, 'hyperion_streamer.launch.py')
+#                ),
+#                condition=conditions.IfCondition(
+#               PythonExpression([LaunchConfiguration('sim_level_needle_sensing'), " == 2"]))
+#            ),
+#        IncludeLaunchDescription(
+#            PythonLaunchDescriptionSource(
+#                os.path.join(pkg_needle_shape_publisher, 'sensorized_shapesensing_needle_decomposed.launch.py')
+#               ),
+#                launch_arguments = {'needleParamFile': LaunchConfiguration( 'needleParamFile')}.items()
+#           ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 os.path.join(pkg_needle_path_control, 'launch', 'needle_position_launch.py')
