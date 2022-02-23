@@ -53,6 +53,7 @@ into the workspace
 ```bash
 python3 -m pip install numpy-quaternion
 pip install transforms3d
+sudo apt-get install ros-foxy-cv-bridge
 ```
 
 Lastly, build the workspace using: 
